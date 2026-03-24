@@ -8,6 +8,7 @@
         .payment-card { background: white; width: 100%; max-width: 400px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); overflow: hidden; border: 1px solid #eee; }
         .header { background: #2196F3; color: white; text-align: center; padding: 18px; font-weight: bold; font-size: 1.25em; }
         .content { padding: 20px; }
+        
         .row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; border: 1px solid #f0f0f0; padding: 12px; border-radius: 8px; }
         .label { color: #888; font-size: 0.85em; }
         .value { font-weight: bold; color: #333; }
@@ -15,12 +16,22 @@
         
         /* UPI Grid matching your reference exactly */
         .upi-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 20px 0; }
-        .upi-item { border: 1px solid #e0e0e0; border-radius: 10px; padding: 15px 12px; display: flex; align-items: center; justify-content: flex-start; background: #fff; cursor: pointer; transition: 0.2s; }
-        .upi-item img { height: 26px; width: auto; margin-right: 12px; object-fit: contain; }
-        .upi-item span { font-size: 1.05em; font-weight: 500; color: #444; }
-        .upi-item.active { border: 1.5px solid #2196F3; background-color: #f0f7ff; }
+        .upi-item { 
+            text-decoration: none; /* Removes link underline */
+            border: 1px solid #e0e0e0; 
+            border-radius: 10px; 
+            padding: 15px 12px; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            background: #fff; 
+            cursor: pointer; 
+            transition: 0.2s; 
+        }
+        .upi-item img { height: 28px; width: auto; margin-right: 10px; object-fit: contain; }
+        .upi-item span { font-size: 1.1em; font-weight: 600; color: #444; }
+        .upi-item:active { border: 1.5px solid #2196F3; background-color: #f0f7ff; }
 
-        .instruction { font-size: 0.85em; color: #666; margin-bottom: 10px; }
         .input-field { width: 100%; padding: 15px; margin-bottom: 15px; border: 1.5px solid #ddd; border-radius: 10px; box-sizing: border-box; outline: none; }
         .submit-btn { width: 100%; background: #2196F3; color: white; border: none; padding: 16px; border-radius: 30px; font-weight: bold; cursor: pointer; font-size: 1.1em; }
         .notice { color: #d32f2f; font-size: 0.8em; margin-top: 20px; line-height: 1.5; }
@@ -31,6 +42,7 @@
 <div class="payment-card">
     <div class="header">Payment</div>
     <div class="content">
+        <!-- Details Section -->
         <div class="row">
             <div><div class="label">Amount</div><div class="value">₹ <span id="amt_val">3500</span></div></div>
             <div class="copy-btn" onclick="copyToClipboard('amt_val')">Copy</div>
@@ -40,30 +52,31 @@
             <div class="copy-btn" onclick="copyToClipboard('upi_id')">Copy</div>
         </div>
 
+        <!-- Functional UPI Grid -->
         <div class="upi-grid">
             <!-- PhonePe -->
-            <div class="upi-item active" onclick="selectApp(this)">
-                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwBAMAAAClBaSlAAAAHlBMVEVHcEwqS0wpS0wpS0wpS0wpS0wpS0wpS0wpS0wpS0xGvSshAAAACnRSTlMA9v7+DP7+DP7+6IuR6AAAAGlJREFUOMtjYBjWwMTIwMDExMTIxMjAyMgIxIByZpBwNohnhshngnhiCH8mCOeFeGII54V4Ykj/YBjWwMTIwMDExMTIxMjAyMgIxIDyZpBwNohnhshngnhiCH8mCOeFeGII54V4Ykj/AAAAAElFTkSuQmCC" alt="">
-                <span>PhonePe</span>
-            </div>
+            <a href="phonepe://pay?pa=akash7****@ybl&am=3500&cu=INR" class="upi-item">
+                <img src="https://img.icons8.com" alt="">
+                <span style="color:#5f259f">PhonePe</span>
+            </a>
             <!-- Paytm -->
-            <div class="upi-item" onclick="selectApp(this)">
-                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwBAMAAAClBaSlAAAAG1BMVEVHcExvS0wpS0wpS0wpS0wpS0wpS0wpS0wpS0y0Eiz+AAAAAXRSTlMAQObYZgAAAFRJREFUOMtjYBjWwMTIwMDExMTIxMjAyMgIxIByZpBwNohnhshngnhiCH8mCOeFeGII54V4Ykj/YBjWwMTIwMDExMTIxMjAyMgIxIDyZpBwNohnhshngnhiCH8mCOeFeGII54V4Ykj/AAAAAElFTkSuQmCC" alt="">
-                <span>Paytm</span>
-            </div>
+            <a href="paytmmp://pay?pa=akash7****@ybl&am=3500&cu=INR" class="upi-item">
+                <img src="https://img.icons8.com" alt="">
+                <span style="color:#00baf2">Paytm</span>
+            </a>
             <!-- Google Pay -->
-            <div class="upi-item" onclick="selectApp(this)">
-                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwBAMAAAClBaSlAAAAIVBMVEVHcEwpS0wpS0wpS0wpS0wpS0wpS0wpS0wpS0wpS0wpS0y8TzJ3AAAACnRSTlMA9v7+DP7+DP7+6IuR6AAAAF1JREFUOMtjYBjWwMTIwMDExMTIxMjAyMgIxIByZpBwNohnhshngnhiCH8mCOeFeGII54V4Ykj/YBjWwMTIwMDExMTIxMjAyMgIxIDyZpBwNohnhshngnhiCH8mCOeFeGII54V4Ykj/AAAAAElFTkSuQmCC" alt="">
+            <a href="tez://pay?pa=akash7****@ybl&am=3500&cu=INR" class="upi-item">
+                <img src="https://img.icons8.com" alt="">
                 <span>G Pay</span>
-            </div>
+            </a>
             <!-- BHIM -->
-            <div class="upi-item" onclick="selectApp(this)">
-                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwBAMAAAClBaSlAAAAGFBMVEVHcEwpS0wpS0wpS0wpS0wpS0wpS0wpS0zMvGToAAAAAnRSTlMA/1uG/zIAAABSSURBVDjLY2AY1sDEyMDAxMTExMTIwMjICMSAcmaQcDaIZ4bIZ4J4Ygh/JgjnhXhiCOeFeGJI/2AY1sDEyMDAxMTExMTIwMjICMSAcmaQcDaIZ4bIZ4J4Ygh/JgjnhXhiCOeFeGJI/2AY1sDEyMDAxMTExMTIwMjICMSAcmaQcDaIZ4bIZ4J4Ygh/JgjnhXhiCOeFeGJI/2AY1sDEyMDAxMTExMTIwMjICMSAcmaQcDaIZ4bIZ4J4Ygh/JgjnhXhiCOeFeGJI/wAAAP//AwC7tS5vV1p8XwAAAABJRU5ErkJggg==" alt="">
-                <span>BHIM</span>
-            </div>
+            <a href="upi://pay?pa=akash7****@ybl&am=3500&cu=INR" class="upi-item">
+                <img src="https://upload.wikimedia.org" alt="">
+                <span style="color:#666">BHIM</span>
+            </a>
         </div>
 
-        <p class="instruction">↓ Fill the UTR numbers after payment</p>
+        <p style="font-size:0.85em; color:#666;">↓ Fill the UTR numbers after payment</p>
         <input type="text" id="utr_input" class="input-field" placeholder="Input UTR number">
         <button class="submit-btn" onclick="handleSubmit()">Submit UTR</button>
 
@@ -76,10 +89,6 @@
 </div>
 
 <script>
-    function selectApp(el) {
-        document.querySelectorAll('.upi-item').forEach(i => i.classList.remove('active'));
-        el.classList.add('active');
-    }
     function copyToClipboard(id) {
         const text = document.getElementById(id).innerText;
         navigator.clipboard.writeText(text).then(() => alert("Copied: " + text));
