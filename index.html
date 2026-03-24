@@ -1,152 +1,247 @@
-<html>
+<html lang="en">
 <head>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<style>
-  body { font-family: Arial, sans-serif; background-color: #f4f7f9; display: flex; justify-content: center; padding: 15px; margin: 0; }
-  .payment-card { background: white; width: 100%; max-width: 380px; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); overflow: hidden; border: 1px solid #e0e0e0; }
-  .header { background: #2196F3; color: white; text-align: center; padding: 18px; font-weight: bold; font-size: 1.3em; }
-  .content { padding: 20px; }
-  .row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; border: 1px solid #ddd; padding: 12px; border-radius: 6px; background: #fff; }
-  .label { color: #666; font-size: 0.9em; }
-  .value { font-weight: bold; color: #333; font-size: 1.1em; }
-  .copy-btn { color: #2196F3; border: 1.5px solid #2196F3; padding: 6px 14px; border-radius: 5px; cursor: pointer; font-size: 0.8em; text-transform: uppercase; font-weight: bold; transition: 0.2s; }
-  .copy-btn:active { background: #e3f2fd; transform: scale(0.95); }
-  .upi-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 20px; }
-  .upi-item { border: 1px solid #ddd; border-radius: 8px; padding: 15px; text-align: center; font-weight: bold; color: #444; }
-  .input-field { width: 100%; padding: 14px; margin: 15px 0; border: 2px solid #eee; border-radius: 8px; box-sizing: border-box; font-size: 1em; }
-  .submit-btn { width: 100%; background: #2196F3; color: white; border: none; padding: 16px; border-radius: 30px; font-weight: bold; cursor: pointer; font-size: 1.1em; }
-  .notice { color: #d32f2f; font-size: 0.85em; margin-top: 20px; line-height: 1.5; font-weight: 500; }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UPI Payment Interface</title>
+    <style>
+        /* Base Styles */
+        body { 
+            font-family: 'Segoe UI', Arial, sans-serif; 
+            background-color: #f4f7f9; 
+            display: flex; 
+            justify-content: center; 
+            padding: 20px; 
+            margin: 0; 
+        }
+
+        /* Card Container */
+        .payment-card { 
+            background: white; 
+            width: 100%; 
+            max-width: 380px; 
+            border-radius: 12px; 
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1); 
+            overflow: hidden; 
+            border: 1px solid #e0e0e0; 
+        }
+
+        /* Header */
+        .header { 
+            background: #2196F3; 
+            color: white; 
+            text-align: center; 
+            padding: 20px; 
+            font-weight: bold; 
+            font-size: 1.4em; 
+            letter-spacing: 0.5px;
+        }
+
+        .content { padding: 24px; }
+
+        /* Payment Detail Rows */
+        .row { 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            margin-bottom: 12px; 
+            border: 1px solid #eee; 
+            padding: 14px; 
+            border-radius: 8px; 
+            background: #fafafa; 
+        }
+
+        .label { color: #777; font-size: 0.85em; text-transform: uppercase; }
+        .value { font-weight: 700; color: #333; font-size: 1.1em; }
+
+        /* Copy Button */
+        .copy-btn { 
+            color: #2196F3; 
+            border: 1.5px solid #2196F3; 
+            padding: 5px 12px; 
+            border-radius: 6px; 
+            cursor: pointer; 
+            font-size: 0.75em; 
+            text-transform: uppercase; 
+            font-weight: bold; 
+            transition: 0.2s ease;
+        }
+        .copy-btn:hover { background: #2196F3; color: white; }
+        .copy-btn:active { transform: scale(0.92); }
+
+        /* UPI Icon Grid */
+        .upi-grid { 
+            display: grid; 
+            grid-template-columns: 1fr 1fr; 
+            gap: 12px; 
+            margin: 25px 0; 
+        }
+
+        .upi-item { 
+            border: 1.5px solid #eee; 
+            border-radius: 10px; 
+            padding: 15px; 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            justify-content: center; 
+            background: #fff; 
+            cursor: pointer;
+            transition: 0.3s ease;
+        }
+        .upi-item img { 
+            height: 35px; 
+            width: auto; 
+            margin-bottom: 10px; 
+            object-fit: contain; 
+        }
+        .upi-item span { 
+            font-size: 0.85em; 
+            font-weight: 600; 
+            color: #555; 
+        }
+        .upi-item:hover { border-color: #2196F3; background: #f0f7ff; }
+
+        /* Input and Button */
+        .instruction { font-size: 0.85em; color: #888; margin-top: 15px; text-align: center; }
+        .input-field { 
+            width: 100%; 
+            padding: 15px; 
+            margin: 10px 0 20px; 
+            border: 2px solid #eee; 
+            border-radius: 10px; 
+            box-sizing: border-box; 
+            font-size: 1em; 
+            outline: none;
+            transition: border-color 0.3s;
+        }
+        .input-field:focus { border-color: #2196F3; }
+
+        .submit-btn { 
+            width: 100%; 
+            background: #2196F3; 
+            color: white; 
+            border: none; 
+            padding: 16px; 
+            border-radius: 50px; 
+            font-weight: bold; 
+            cursor: pointer; 
+            font-size: 1.1em; 
+            box-shadow: 0 4px 10px rgba(33, 150, 243, 0.3);
+            transition: 0.3s;
+        }
+        .submit-btn:hover { background: #1976D2; transform: translateY(-1px); }
+
+        /* Notice Section */
+        .notice { 
+            background: #fff5f5;
+            border-left: 4px solid #d32f2f;
+            padding: 12px;
+            color: #b71c1c; 
+            font-size: 0.8em; 
+            margin-top: 25px; 
+            line-height: 1.6; 
+            border-radius: 4px;
+        }
+    </style>
 </head>
 <body>
 
 <div class="payment-card">
-  <div class="header">Payment</div>
-  <div class="content">
-    <div class="row">
-      <div class="label">Amount</div>
-      <div class="value">₹ <span id="amt_val">3500</span></div>
-      <div class="copy-btn" onclick="copyToClipboard('amt_val')">Copy</div>
+    <div class="header">Payment</div>
+    
+    <div class="content">
+        <!-- Amount Row -->
+        <div class="row">
+            <div>
+                <div class="label">Amount</div>
+                <div class="value">₹ <span id="amt_val">3500</span></div>
+            </div>
+            <div class="copy-btn" onclick="copyToClipboard('amt_val')">Copy</div>
+        </div>
+
+        <!-- UPI ID Row -->
+        <div class="row">
+            <div>
+                <div class="label">VPA/UPI ID</div>
+                <div class="value" id="upi_id">akash7****@ybl</div>
+            </div>
+            <div class="copy-btn" onclick="copyToClipboard('upi_id')">Copy</div>
+        </div>
+
+        <!-- UPI App Grid -->
+        <div class="upi-grid">
+            <div class="upi-item">
+                <img src="https://img.icons8.com" alt="PhonePe">
+                <span>PhonePe</span>
+            </div>
+            <div class="upi-item">
+                <img src="https://img.icons8.com" alt="Paytm">
+                <span>Paytm</span>
+            </div>
+            <div class="upi-item">
+                <img src="https://img.icons8.com" alt="GPay">
+                <span>G Pay</span>
+            </div>
+            <div class="upi-item">
+                <img src="https://upload.wikimedia.org" alt="BHIM">
+                <span>BHIM</span>
+            </div>
+        </div>
+
+        <!-- UTR Input Section -->
+        <p class="instruction">↓ Fill the UTR numbers after you done payment</p>
+        <input type="text" id="utr_input" class="input-field" placeholder="Enter 12-digit UTR number">
+        <button class="submit-btn" onclick="handleSubmit()">Submit UTR</button>
+
+        <!-- Notice -->
+        <div class="notice">
+            <strong>Important Notice:</strong><br>
+            1. One UPI can only transfer money once.<br>
+            2. Don't change the payment amount. Otherwise, the order cannot be closed.
+        </div>
     </div>
-    <div class="row">
-      <div class="label">VPA/UPI ID</div>
-      <div class="value" id="upi_id">akash7****@ybl</div>
-      <div class="copy-btn" onclick="copyToClipboard('upi_id')">Copy</div>
-    </div>
-
-    <div class="upi-grid">
-      <style>
-  /* Add this to your existing <style> section */
-  .upi-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 12px;
-    margin-top: 20px;
-  }
-  .upi-item {
-    border: 1.5px solid #eee;
-    border-radius: 10px;
-    padding: 12px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    background: #fff;
-    transition: 0.2s;
-  }
-  .upi-item img {
-    height: 32px; /* Adjust size to match your design */
-    width: auto;
-    margin-bottom: 8px;
-    object-fit: contain;
-  }
-  .upi-item span {
-    font-size: 0.85em;
-    font-weight: bold;
-    color: #444;
-  }
-  .upi-item:active {
-    background-color: #f9f9f9;
-    border-color: #2196F3;
-  }
-</style>
-
-<div class="upi-grid">
-  <!-- PhonePe -->
-  <div class="upi-item">
-    <img src="https://uxwing.com" alt="PhonePe">
-    <span>PhonePe</span>
-  </div>
-  
-  <!-- Paytm -->
-  <div class="upi-item">
-    <img src="https://uxwing.com" alt="Paytm">
-    <span>Paytm</span>
-  </div>
-
-  <!-- Google Pay -->
-  <div class="upi-item">
-    <img src="https://uxwing.com" alt="GPay">
-    <span>G Pay</span>
-  </div>
-
-  <!-- BHIM -->
-  <div class="upi-item">
-    <img src="https://uxwing.com" alt="BHIM">
-    <span>BHIM</span>
-  </div>
-</div>
-    </div>
-
-    <p style="font-size:0.85em; color:#666; margin-top:20px;">↓ Fill the UTR numbers after you done payment</p>
-    <input type="text" id="utr_input" class="input-field" placeholder="Input UTR number">
-    <button class="submit-btn" onclick="handleSubmit()">Submit UTR</button>
-
-    <div class="notice">
-      <b>Notice:</b><br>
-      1. One UPI can only transfer money once.<br>
-      2. Don't change the payment amount. Otherwise, the order cannot be closed.
-    </div>
-  </div>
 </div>
 
 <script>
-  function copyToClipboard(id) {
-    const text = document.getElementById(id).innerText;
-    
-    // Modern approach
-    if (navigator.clipboard && window.isSecureContext) {
-      navigator.clipboard.writeText(text).then(() => {
-        alert("Copied: " + text);
-      }).catch(err => { fallbackCopy(text); });
-    } else {
-      fallbackCopy(text);
+    // Copy Functionality
+    function copyToClipboard(id) {
+        const text = document.getElementById(id).innerText;
+        
+        if (navigator.clipboard && window.isSecureContext) {
+            navigator.clipboard.writeText(text).then(() => {
+                alert("Copied: " + text);
+            }).catch(() => fallbackCopy(text));
+        } else {
+            fallbackCopy(text);
+        }
     }
-  }
 
-  function fallbackCopy(text) {
-    const textArea = document.createElement("textarea");
-    textArea.value = text;
-    document.body.appendChild(textArea);
-    textArea.select();
-    try {
-      document.execCommand('copy');
-      alert("Copied: " + text);
-    } catch (err) {
-      alert("Please copy manually.");
+    function fallbackCopy(text) {
+        const textArea = document.createElement("textarea");
+        textArea.value = text;
+        document.body.appendChild(textArea);
+        textArea.select();
+        try {
+            document.execCommand('copy');
+            alert("Copied: " + text);
+        } catch (err) {
+            alert("Please copy manually.");
+        }
+        document.body.removeChild(textArea);
     }
-    document.body.removeChild(textArea);
-  }
 
-  function handleSubmit() {
-    const utr = document.getElementById('utr_input').value;
-    if (utr.trim() === "" || utr.length < 10) {
-      alert("Please enter a valid UTR number.");
-    } else {
-      alert("UTR Submitted: " + utr + "\nVerification in progress.");
+    // Submit Functionality
+    function handleSubmit() {
+        const utr = document.getElementById('utr_input').value.trim();
+        // Standard UTR is usually 12 digits
+        if (utr === "" || utr.length < 10) {
+            alert("Error: Please enter a valid UTR number.");
+        } else {
+            alert("Success! UTR " + utr + " submitted.\nPayment verification is in progress.");
+        }
     }
-  }
 </script>
 
 </body>
 </html>
+
