@@ -2,129 +2,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>UPI Payment Interface</title>
+    <title>Payment Interface</title>
     <style>
-        body { 
-            font-family: 'Segoe UI', Arial, sans-serif; 
-            background-color: #f4f7f9; 
-            display: flex; 
-            justify-content: center; 
-            padding: 15px; 
-            margin: 0; 
-        }
-        .payment-card { 
-            background: white; 
-            width: 100%; 
-            max-width: 400px; 
-            border-radius: 12px; 
-            box-shadow: 0 4px 20px rgba(0,0,0,0.08); 
-            overflow: hidden; 
-            border: 1px solid #e0e0e0; 
-        }
-        .header { 
-            background: #2196F3; 
-            color: white; 
-            text-align: center; 
-            padding: 18px; 
-            font-weight: bold; 
-            font-size: 1.25em; 
-        }
+        body { font-family: 'Segoe UI', Arial, sans-serif; background-color: #f8f9fa; display: flex; justify-content: center; padding: 15px; margin: 0; }
+        .payment-card { background: white; width: 100%; max-width: 400px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); overflow: hidden; border: 1px solid #eee; }
+        .header { background: #2196F3; color: white; text-align: center; padding: 18px; font-weight: bold; font-size: 1.25em; }
         .content { padding: 20px; }
-        .row { 
-            display: flex; 
-            justify-content: space-between; 
-            align-items: center; 
-            margin-bottom: 12px; 
-            border: 1px solid #eee; 
-            padding: 12px; 
-            border-radius: 8px; 
-            background: #fff; 
-        }
-        .label { color: #888; font-size: 0.9em; }
-        .value { font-weight: bold; color: #333; font-size: 1.1em; }
-        .copy-btn { 
-            color: #2196F3; 
-            border: 1.5px solid #2196F3; 
-            padding: 6px 14px; 
-            border-radius: 6px; 
-            cursor: pointer; 
-            font-size: 0.8em; 
-            font-weight: bold; 
-            text-transform: uppercase; 
-        }
-        .help-link { 
-            color: #2196F3; 
-            font-size: 0.9em; 
-            margin-bottom: 15px; 
-            display: flex; 
-            align-items: center; 
-            text-decoration: none; 
-            font-weight: 500; 
-        }
+        .row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; border: 1px solid #f0f0f0; padding: 12px; border-radius: 8px; }
+        .label { color: #888; font-size: 0.85em; }
+        .value { font-weight: bold; color: #333; }
+        .copy-btn { color: #2196F3; border: 1.5px solid #2196F3; padding: 5px 12px; border-radius: 6px; cursor: pointer; font-size: 0.75em; font-weight: bold; }
         
-        /* UPI Grid Styling - Exact Match to Your Image */
-        .upi-grid { 
-            display: grid; 
-            grid-template-columns: 1fr 1fr; 
-            gap: 10px; 
-            margin-bottom: 25px; 
-        }
-        .upi-item { 
-            border: 1.5px solid #eee; 
-            border-radius: 10px; 
-            padding: 12px; 
-            display: flex; 
-            align-items: center; 
-            justify-content: flex-start; 
-            background: #fff; 
-            cursor: pointer; 
-            transition: all 0.2s ease; 
-        }
-        .upi-item img { 
-            height: 24px; 
-            width: auto; 
-            margin-right: 12px; 
-            object-fit: contain; 
-        }
-        .upi-item span { 
-            font-size: 1em; 
-            font-weight: 600; 
-            color: #444; 
-        }
-        .upi-item.active { 
-            border-color: #2196F3; 
-            background-color: #f0f7ff; 
-        }
+        /* UPI Grid matching your reference exactly */
+        .upi-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 20px 0; }
+        .upi-item { border: 1px solid #e0e0e0; border-radius: 10px; padding: 15px 12px; display: flex; align-items: center; justify-content: flex-start; background: #fff; cursor: pointer; transition: 0.2s; }
+        .upi-item img { height: 26px; width: auto; margin-right: 12px; object-fit: contain; }
+        .upi-item span { font-size: 1.05em; font-weight: 500; color: #444; }
+        .upi-item.active { border: 1.5px solid #2196F3; background-color: #f0f7ff; }
 
         .instruction { font-size: 0.85em; color: #666; margin-bottom: 10px; }
-        .input-field { 
-            width: 100%; 
-            padding: 15px; 
-            margin-bottom: 15px; 
-            border: 2px solid #eee; 
-            border-radius: 10px; 
-            box-sizing: border-box; 
-            font-size: 1em; 
-            outline: none; 
-        }
-        .submit-btn { 
-            width: 100%; 
-            background: #2196F3; 
-            color: white; 
-            border: none; 
-            padding: 16px; 
-            border-radius: 30px; 
-            font-weight: bold; 
-            cursor: pointer; 
-            font-size: 1.1em; 
-        }
-        .notice { 
-            color: #d32f2f; 
-            font-size: 0.8em; 
-            margin-top: 20px; 
-            line-height: 1.5; 
-            font-weight: 500; 
-        }
+        .input-field { width: 100%; padding: 15px; margin-bottom: 15px; border: 1.5px solid #ddd; border-radius: 10px; box-sizing: border-box; outline: none; }
+        .submit-btn { width: 100%; background: #2196F3; color: white; border: none; padding: 16px; border-radius: 30px; font-weight: bold; cursor: pointer; font-size: 1.1em; }
+        .notice { color: #d32f2f; font-size: 0.8em; margin-top: 20px; line-height: 1.5; }
     </style>
 </head>
 <body>
@@ -141,47 +40,45 @@
             <div class="copy-btn" onclick="copyToClipboard('upi_id')">Copy</div>
         </div>
 
-        <a href="#" class="help-link">❔ How to transfer money 🔗</a>
-
         <div class="upi-grid">
             <!-- PhonePe -->
             <div class="upi-item active" onclick="selectApp(this)">
-                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAMAAABg3Am1AAAASFBMVEVHcEwpS0wpS0wpS0wpS0wpS0wpS0wpS0wpS0wpS0wpS0wpS0wpS0wpS0wpS0wpS0wpS0wpS0wpS0wpS0wpS0wpS0wpS0wpS0yYm87YAAAAF3RSTlMA9v7+DP7+DP7+DP7+DP7+DP7+DP7+DP7+DNvHbwAAAKBJREFUSMft0ksSwiAQQFFBf9Tf/7S2SBeS6STInmYp3isU8pCkgmE8T0Xv53K6p8tYvXf0C1f0K8Y6P6H/fS79m6uV39At/Yp+9fT7R1A77C577N5B/Yp+9fT77G/A7rIn7EmAtkPt9mD3DurfX61m71871D7uAnYH7D6AnUuXvXdInX7pkv/7I0866A486f0GvWvYvX9+eN3e6H2K/AEbeREvV3787QAAAABJRU5ErkJggg==" alt="PhonePe">
+                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwBAMAAAClBaSlAAAAHlBMVEVHcEwqS0wpS0wpS0wpS0wpS0wpS0wpS0wpS0wpS0xGvSshAAAACnRSTlMA9v7+DP7+DP7+6IuR6AAAAGlJREFUOMtjYBjWwMTIwMDExMTIxMjAyMgIxIByZpBwNohnhshngnhiCH8mCOeFeGII54V4Ykj/YBjWwMTIwMDExMTIxMjAyMgIxIDyZpBwNohnhshngnhiCH8mCOeFeGII54V4Ykj/AAAAAElFTkSuQmCC" alt="">
                 <span>PhonePe</span>
             </div>
             <!-- Paytm -->
             <div class="upi-item" onclick="selectApp(this)">
-                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAACXBIWXMAAAsTAAALEwEAmpwYAAACeklEQVR4nO2Yv2sUQRTHP7m7vbtLcmfSiaYIomAnpA9SBBstUqSInZ0/wdZGC60U7fInpLDRSgs7m8SInSBYmSAt7Gwi9yY3u8vXImfBvTia9S778X7AMMN7O/N+7703uzvEMAzDMIyIEYAn6mPAtqhfAnvAIpAG7mG/XfW7AnzAn6jvAFvAnvS/Bv6gvgU8ArYAtxR6D9hV6FfAU3W+XW6X9663BPyh0LvAtkK/An6p85Ny97uYl+p8X9vH2/q8u9xe66XWAbZV8BDYUsE9FTxUwaMKXmP/L6v3AHeBLeq/Bv6gPmX+q89f2P/C9776fALuA6vA8iT7U8XmY/6L7+vAInCluL6n2Pyv/X8D169ifA6Yf6LY9H9DsfmY/+S7AiwC80AVWAbm9vT5rXre0ecO9n9P5nK6S89fAbYn2T7WfB6Y6+v5WvP5Yf4H/6vAXeAO8Fz9r9Xndf396HMa+yvT9zK969TfA+6pYscKfqjiR5W8C86vTHfV8z7wa0f/9SpxXwW+VPCHCl6p4F7l/DndRz0PgeU68T7UfH7E/S+yFmE/p4qdVcVmXvO50Xo6p47v6XhAn9uYf+XvDTAHzANVvOnrU+ZzXm0eAevAVfU/Vp/X9fdyvI39356+f0fXN+D/m86mXNfU59Cen9PnFva/6GzKdV19An2uS7mue7Yp9yX1OfUn9InO79p8m/I+U59D+1+0+XbY51f2D77fUv1D+0fW9Yn9H3y/p/qf9v9L66t6v+P7OfXfVv9j9X9Xn78y/yX199XvTfU5S7mue7Yp9yX1OfUn9InOD8MwDMMwjBj4B6BfUvYx333qAAAAAElFTkSuQmCC" alt="Paytm">
+                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwBAMAAAClBaSlAAAAG1BMVEVHcExvS0wpS0wpS0wpS0wpS0wpS0wpS0wpS0y0Eiz+AAAAAXRSTlMAQObYZgAAAFRJREFUOMtjYBjWwMTIwMDExMTIxMjAyMgIxIByZpBwNohnhshngnhiCH8mCOeFeGII54V4Ykj/YBjWwMTIwMDExMTIxMjAyMgIxIDyZpBwNohnhshngnhiCH8mCOeFeGII54V4Ykj/AAAAAElFTkSuQmCC" alt="">
                 <span>Paytm</span>
             </div>
             <!-- Google Pay -->
             <div class="upi-item" onclick="selectApp(this)">
-                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAACXBIWXMAAAsTAAALEwEAmpwYAAADUklEQVR4nO2ZTW8SQRiGn91ll0X9AImmiTe9eDLGv8ODp/4D/hk9evXkyZMxHrxoYmKi0ZvepInGUEBgl7XLMvPByK6yAtuSArX7JJNsdmfemSdP3pndBfM8z/M8z/M8z/M/zL/Ww8PDiWVZ9W63u+v7/pYxZkfXdfvR0dF9XdfvGWOshmF8cl03Vpblz4ZhHHueN+12uw3DMF4ZhnHh+/657/un/5OfmC69Xm8XWC8Wi6vAnmVZO9Z/N8/zyOVyf9Z9B5gA08VicRXYKxQK95ZlvTAMY9/3/YFlWV9ardYH13XfAsPAfH2/Wq1m5vP5p8BOfnNfBf7Ytu0/xpiDzc3N7Xq9fguM8+u+vWmaH8IwHOfzeWscY8wFMLUsa3dtbe0+8GhjY8Ocnp7+XvclEol78Xj8R6PR+F2v178HQTCOxWK729vbt4Bvtm1/jMfjP5eXl98YY77VarVf1Wq15fv+NLAO7Ozu7p4BPyzL+rO/v/89nU7PPM/79mfdZ8zXdf3p5OTkS6/XOwAawDngmKb5PZPJZNbX11V9fV3U6/XwH8DvgqLoC+AV8N627X9isRj37v9T9zHAtu3NxcXFnW63ey7XG8Br4Ff9L+uY53m/fd//pOs6S0tL9Ho9XNclm83S6XSwbRvTNLm6uuLu7g7TNKnVarRaLTKZDIZhcH19TaPRYDabXWia9gYY+b7P0tISx8fH9Pt9kskk0+mUy8tLjo+P2d7eBqDdbuP7PktLS1xcXFCr1SiXy8TjcVzXpVarXWma9rG+LpPJMBwOmc/n9Ho9Li8vyeVylEoltra2ODk5IZFIUCqVcBynGIdKpfLdMIw/S0tLXF9fk81mCcOQQqHAyclJsR/HccrnfD5POp3GMIzdM8A0zW9isUun01SrVRzH4fr6GsdxqFar+L5fpM9ms6yvr5PL5TAMYzC/B8YAlmUxmUyK1YqO47CxsUG73SadThdhjDEkEgmOjo6K993dnTiA3mR8p7U7EUK9Xh/0ej2x26/X6+I4vUnj6uqqOK9Wq+N8Pj9pNBpTzfO8v9W/V8P7uVgsFhcXF9uO48S/m98Lxhhf07SRruvn88R5nheYpnlvmiZ9p7O7u7vT7/8S5nme53me53me53me98f+AL9M6Xm1Ue69AAAAAElFTkSuQmCC" alt="G Pay">
+                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwBAMAAAClBaSlAAAAIVBMVEVHcEwpS0wpS0wpS0wpS0wpS0wpS0wpS0wpS0wpS0wpS0y8TzJ3AAAACnRSTlMA9v7+DP7+DP7+6IuR6AAAAF1JREFUOMtjYBjWwMTIwMDExMTIxMjAyMgIxIByZpBwNohnhshngnhiCH8mCOeFeGII54V4Ykj/YBjWwMTIwMDExMTIxMjAyMgIxIDyZpBwNohnhshngnhiCH8mCOeFeGII54V4Ykj/AAAAAElFTkSuQmCC" alt="">
                 <span>G Pay</span>
             </div>
             <!-- BHIM -->
             <div class="upi-item" onclick="selectApp(this)">
-                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAACXBIWXMAAAsTAAALEwEAmpwYAAAByklEQVR4nO2Yv0vDQBSHP0mbtmptB8XFrS6CuAi6C7pY/wEXXf0X/AOCuAi6CboIunRxURdBXBy6OghatE07pA6vL00T8yNfKeIHeS93ueS9u+S994YQQgghhBDeWAb6wCvAAtAnMAnMAtNAv6DPHXALrANvBfPcgXvgE3gv6PcBvAKfQH2D826BU+ACuC7p9wx8AnXgA9idEPunwE6ZfUfgAtgu6bcPnAJXQLXpGZgG9sr6VnreAm8l/V6A8WZnYIuU+3T9F3AF9Ev67QKvQLPpef7A7L9Y0X8L1IDzkn6PwMjf9M8v8B7oR60B68CzoD+N9WFrQHNoP8u91YBhBvW+9eE77fVha0BzaD/LvdWAYQb1vvXhO+31YWtAc2g/y73VgGEG9b714Tvt9WFrQHNoP8u91YBhBvW+9eE77fVha0BzaD/LvdWAYQb1vvXhO+31YWtAc2g/y73VgGEG9b714Tvt9Wfzg/oHnV/WwOGvb4anb6mPH9g9oT6en68/4E6rB/vf1rsf/T6sH68/2mx/9nrw/rx/qfF/nevD+vH+58W+1+8Pqwf739a7H/3+rB+vP9psf/T68P68f6nxf5Pr69G9170W8AX0C3p1yf1X/Ue8AFU8/vBCCGEEEII6YV/Tz8P5X1G0u0AAAAASUVORK5CYII=" alt="BHIM">
+                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwBAMAAAClBaSlAAAAGFBMVEVHcEwpS0wpS0wpS0wpS0wpS0wpS0wpS0zMvGToAAAAAnRSTlMA/1uG/zIAAABSSURBVDjLY2AY1sDEyMDAxMTExMTIwMjICMSAcmaQcDaIZ4bIZ4J4Ygh/JgjnhXhiCOeFeGJI/2AY1sDEyMDAxMTExMTIwMjICMSAcmaQcDaIZ4bIZ4J4Ygh/JgjnhXhiCOeFeGJI/2AY1sDEyMDAxMTExMTIwMjICMSAcmaQcDaIZ4bIZ4J4Ygh/JgjnhXhiCOeFeGJI/2AY1sDEyMDAxMTExMTIwMjICMSAcmaQcDaIZ4bIZ4J4Ygh/JgjnhXhiCOeFeGJI/wAAAP//AwC7tS5vV1p8XwAAAABJRU5ErkJggg==" alt="">
                 <span>BHIM</span>
             </div>
         </div>
 
-        <p class="instruction">↓ Fill the UTR numbers after you done payment</p>
+        <p class="instruction">↓ Fill the UTR numbers after payment</p>
         <input type="text" id="utr_input" class="input-field" placeholder="Input UTR number">
         <button class="submit-btn" onclick="handleSubmit()">Submit UTR</button>
 
         <div class="notice">
             <b>Notice:</b><br>
             1. One UPI can only transfer money once.<br>
-            2. Don't change the payment amount. Otherwise, the order cannot be closed.
+            2. Don't change the payment amount.
         </div>
     </div>
 </div>
 
 <script>
-    function selectApp(element) {
-        document.querySelectorAll('.upi-item').forEach(item => item.classList.remove('active'));
-        element.classList.add('active');
+    function selectApp(el) {
+        document.querySelectorAll('.upi-item').forEach(i => i.classList.remove('active'));
+        el.classList.add('active');
     }
     function copyToClipboard(id) {
         const text = document.getElementById(id).innerText;
@@ -192,7 +89,7 @@
         if (utr.trim().length < 10) {
             alert("Please enter a valid UTR number.");
         } else {
-            alert("UTR " + utr + " submitted successfully.");
+            alert("UTR submitted successfully.");
         }
     }
 </script>
